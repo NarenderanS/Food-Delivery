@@ -1,0 +1,214 @@
+<!-- User Orders -->
+<div class="container my-3" *ngIf="isUser()">
+  <div *ngIf="orders.length > 0">
+    <!-- Title -->
+    <div class="p-3 border-bottom">
+      <h5 class="mb-0 fw-bold">Your Orders</h5>
+      <p class="small mb-0">{{ getOrdersCount() }} items</p>
+    </div>
+    <!-- Items -->
+
+    <table
+      class="table align-items-start table-bordered table-striped border border-3"
+    >
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">OrderId</th>
+          <th scope="col">Orders</th>
+          <th scope="col">Status</th>
+          <!-- <th scope="col">ReOrder</th> -->
+          <th scope="col">Print Bill</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let order of orders">
+        <tr class="border border-5">
+          <th scope="row">{{ order.id }}</th>
+          <td>
+            <div class="small text-muted mb-0">
+              Ordered Date & Time : {{ order.orderTime }}
+            </div>
+            <div>
+              <hr class="link-opacity-10" />
+              <table class="table table-striped">
+                <thead>
+                  <tr class="table-warning">
+                    <th>Product</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let product of order.orderedProducts">
+                  <tr>
+                    <td>
+                      {{ product.title }}
+                    </td>
+                    <td>₹ {{ product.price }}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Total</th>
+                    <th>
+                      <div class="">
+                        ₹ {{ getPrice(order.orderedProducts) }}
+                      </div>
+                    </th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div>
+              <p class="small text-muted mb-0">Delivery Address</p>
+
+              <p class="small text-muted mb-0">
+                {{ order.address.address }},{{ order.address.city }},{{
+                  order.address.zipcode
+                }}
+              </p>
+            </div>
+          </td>
+          <td>{{ order.orderStatus }}</td>
+          <!-- <td><button (click)="reOrder(order.id)">ReOrder</button></td> -->
+          <td>
+            <button class="btn btn-warning" (click)="printBill(order)">
+              Print Bill
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="orders.length === 0">
+    <!-- Title -->
+    <div class="p-3 border-bottom">
+      <h5 class="mb-0 fw-bold">Your Orders</h5>
+    </div>
+    <div><h2 class="mt-2">No Orders Placed Yet</h2></div>
+    <div class="mb-0" style="max-width: 40vw">
+      <ng-lottie [options]="options"></ng-lottie>
+    </div>
+  </div>
+
+  <!-- <div class="py-2">
+    <!-- Item 
+    <div
+      class="d-flex align-items-center justify-content-between py-2 px-3 border-bottom"
+      *ngFor="let order of orders"
+    >
+      <!-- Item Details 
+      <div class="px-2">
+        <p class="mb-0">{{ order.title }}</p>
+        <p class="small text-muted mb-1">1 pack</p>
+        <p class="small text-muted mb-0">Delivered at</p>
+        <p class="small text-muted mb-0">Address</p>
+      </div>
+
+      <!-- Price -
+      <div class="ps-4">
+        <div class="text-end">₹ 150</div>
+      </div>
+      <div>{{ order.orderStatus }}</div>
+      <div><button>ReOrder</button></div>
+    </div>
+  </div>
+  <!-- Address
+       offcanvas 
+    <div class="ps-3">
+      <button
+        class="rounded-5 p-4 bg-white"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasExample"
+      >
+        <span>
+          <h5 class="fw-bold mb-2">Delivery Address</h5>
+          <p class="small text-muted mb-0">
+            Select a saved delivery address or add a new address
+          </p>
+        </span>
+      </button>
+      
+    </div> 
+</div> -->
+</div>
+
+<!-- Admin Orders -->
+<div class="container my-3" *ngIf="!isUser()">
+  <!-- Title -->
+  <div class="p-3 border-bottom">
+    <h5 class="mb-0 fw-bold">Total Orders</h5>
+    <p class="small mb-0">{{ getAllOrdersCount() }} items</p>
+  </div>
+  <!-- Items -->
+  <table
+    class="table align-items-start table-bordered table-striped border border-3"
+  >
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">S.No</th>
+        <th scope="col">OrderID</th>
+        <th scope="col">Username</th>
+        <!-- <th scope="col">Restaurant</th> -->
+        <th scope="col">Products</th>
+        <th scope="col">OrderStatus</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let order of adminOrders">
+      <tr>
+        <th scope="row">{{ order.id }}</th>
+        <td>{{ order.id }}</td>
+        <td>{{ order.username }}</td>
+        <!-- <td scope="row">restaurant name</td> -->
+        <td>
+          <tr>
+            Ordered Date & Time :
+            {{
+              order.orderTime
+            }}
+          </tr>
+          <hr class="link-opacity-10" />
+
+          <table class="table table-striped">
+            <thead>
+              <tr class="table-warning">
+                <th>Product</th>
+                <th>Count</th>
+                <th>Price</th>
+                <th>Restaurant Id</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let product of order.orderedProducts">
+              <tr>
+                <td>{{ product.title }}</td>
+                <td>{{ product.count }}</td>
+                <td>₹ {{ product.price }}</td>
+                <td>{{ product.restaurantId }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="table-secondary">
+                <th>Total Price</th>
+                <th></th>
+                <th>
+                  <div class="">₹ {{ getPrice(order.orderedProducts) }}</div>
+                </th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+          <div>
+            <p class="small text-muted mb-0">Delivery Address</p>
+
+            <p class="small text-muted mb-0">
+              {{ order.address.address }},{{ order.address.city }},{{
+                order.address.zipcode
+              }}
+            </p>
+          </div>
+        </td>
+
+        <td>{{ order.orderStatus }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,363 @@
+<!-- <nav
+  class="navbar navbar-expand-lg nav px-5 pt-3 sticky-top shadow align-items-center"
+  *ngIf="navBar()"
+>
+  <div class="container-fluid p-0 clearfix"> 
+
+  <div class="container-fluid">
+    <div>
+      <a class="navbar-brand text-white" routerLink="home">Shop Anywhere</a>
+    </div>
+    <div
+      class="collapse navbar-collapse d-flex justify-content-end"
+      id="navbarNav"
+    >
+       if user logged in 
+      <ul class="navbar-nav" *ngIf="user()">
+        <li class="nav-item px-1">
+          <a
+            class="nav-link active text-white"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ><i class="fa fa-house-chimney fs-3 text-white"></i
+            ><span class="visually-hidden">Home</span></a
+          >
+        </li>
+        <li class="nav-item px-3">
+          <a
+            class="btn btn-light position-relative rounded-pill rounded-icon"
+            routerLink="cart"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-cart-shopping"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >5
+              <span class="visually-hidden">Cart</span>
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item px-3">
+          <a
+            href="#"
+            class="btn btn-light position-relative rounded-pill rounded-icon"
+            routerLink="order"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-bowl-food"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >5
+              <span class="visually-hidden">Order</span>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            href="#"
+            class="btn btn-light rounded-pill rounded-icon fixed"
+            routerLink="profile"
+            routerLinkActive="active"
+          >
+            <i class="fa-regular fa-circle-user"></i>
+          </a>
+        </li>
+
+        <li class="nav-item px-3">
+          <a class="btn btn-light rounded-pill" (click)="logout()">
+            <i class="fa fa-right-from-bracket text-danger"></i
+          ></a>
+        </li>
+      </ul>
+      if user doesnot login 
+      <ul class="navbar-nav" *ngIf="!isLoggedIn()">
+        <li class="nav-item">
+          <a
+            class="nav-link active px-3"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ><i class="fa-solid fa-house-chimney fs-3 text-white"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-light rounded-pill ms-2 px-4" routerLink="about"
+            >About</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-light rounded-pill px-3 ms-3" routerLink="login"
+            >Login<i
+              class="fa-solid fa-right-from-bracket fa-beat ps-2 text-black"
+            ></i
+          ></a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="btn btn-success py-2 px-3 rounded-pill ms-3"
+            routerLink="/register"
+            >Sign in<i
+              class="fa-solid fa-right-from-bracket fa-beat ps-2 text-white"
+            ></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+<!-- </div> -->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary nav px-5">
+  <div class="container-fluid">
+    <div>
+      <a class="navbar-brand text-white px-5 me-5" routerLink="home"
+        >Shop Anywhere</a
+      >
+    </div>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ps-5 ms-auto " id="navbarScroll">
+      <!-- <div class="px-5" *ngIf="!admin()">
+        <form class="d-flex justify-content-center" role="search">
+          <input
+            class="form-control p-0 m-2 rounded-1"
+            type="search"
+            placeholder=" Search"
+            aria-label="Search"
+          />
+          <button class="btn" type="submit">
+            <i class="fa fa-magnifying-glass text-white fs-4" ></i>
+          </button>
+        </form>
+      </div> -->
+      <!-- If user loggedIn -->
+      <ul
+        class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll align-items-center"
+        style="--bs-scroll-height: 100px"
+        *ngIf="user()"
+      >
+        <li class="nav-item ms-auto">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="home"
+            routerLinkActive="active"
+          >
+          <i class="fa fa-house-chimney text-black" style="background-color: white;"></i
+            >
+          </a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            class="btn border-0"
+            routerLink="cart"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-cart-shopping"  style="background-color: white;"></i>
+            <!-- <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >{{getCartCount()}}
+              <span class="visually-hidden">Cart</span>
+            </span> -->
+          </a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="order"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-bowl-food"  style="background-color: white;"></i>
+            <!-- <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >5
+              <span class="visually-hidden">Order</span>
+            </span> -->
+          </a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="profile"
+            routerLinkActive="active"
+          >
+            <i class="fa-regular fa-circle-user"  style="background-color: white;"></i>
+          </a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="btn" (click)="logout()">
+            <i class="fa fa-right-from-bracket text-danger"  style="background-color: white;"></i
+          ></a>
+        </li>
+      </ul>
+      <!-- If Restaurant loggedIn -->
+      <ul
+        class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll align-items-center"
+        style="--bs-scroll-height: 100px"
+        *ngIf="restaurant()"
+      >
+        <li class="nav-item ">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="restaurant/home"
+            routerLinkActive="active"
+          >
+          <i class="fa fa-house-chimney text-black" style="background-color: white;"></i
+            >
+          </a>
+        </li>
+        <!-- <li class="nav-item px-2">
+          <a
+            class="btn btn-light position-relative rounded-pill rounded-icon"
+            routerLink="cart"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-cart-shopping"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >5
+              <span class="visually-hidden">Cart</span>
+            </span>
+          </a>
+        </li> -->
+        <li class="nav-item m-1">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="restaurant_orders"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-bowl-food"  style="background-color: white;"></i>
+          </a>
+        </li>
+        <li class="nav-item m-1">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="restaurant_profile"
+            routerLinkActive="active"
+          >
+            <i class="fa-regular fa-circle-user"  style="background-color: white;"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="btn" (click)="logout()">
+            <i class="fa fa-right-from-bracket text-danger"  style="background-color: white;"></i
+          ></a>
+        </li>
+      </ul>
+      <!-- If Admin loggedIn -->
+      <ul
+        class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll align-items-center"
+        style="--bs-scroll-height: 100px"
+        *ngIf="admin()"
+      >
+        <li class="nav-item ms-5 ps-3 pe-2">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="admin/home"
+            routerLinkActive="active"
+          >
+          <i class="fa fa-house-chimney text-black"  style="background-color: white;"></i
+            >
+          </a>
+        </li>
+        <!-- <li class="nav-item px-2">
+          <a
+            class="btn btn-light position-relative rounded-pill rounded-icon"
+            routerLink="cart"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-cart-shopping"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >5
+              <span class="visually-hidden">Cart</span>
+            </span>
+          </a>
+        </li> -->
+        <li class="nav-item m-1 px-2">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="order"
+            routerLinkActive="active"
+          >
+            <i class="fa fa-bowl-food"  style="background-color: white;"></i>
+          </a>
+        </li>
+        <!-- <li class="nav-item m-1 px-2">
+          <a
+            href="#"
+            class="btn border-0"
+            routerLink="/admin/userDetails"
+            routerLinkActive="active"
+          >
+          <i class="fa fa-users"  style="background-color: white;"></i>
+          </a>
+        </li> -->
+        <li class="nav-item m-1 px-2">
+          <a class="btn"  (click)="logout()">
+            <i class="fa fa-right-from-bracket text-danger" style="background-color: white;"></i
+          ></a>
+        </li>
+      </ul>
+
+      <!-- if user doesnot loggedin -->
+      <ul
+        class="navbar-nav my-2 my-lg-0  align-items-center ms-auto"
+        style="--bs-scroll-height: 100px"
+        *ngIf="!isLoggedIn()"
+      >
+        <li class="nav-item mb-1 ps-3 pe-2">
+          <a
+            class="nav-link active text-white p-0"
+            aria-current="page"
+            routerLink="home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ><i class="fa fa-house-chimney fs-3"  style="background-color: none;"></i
+            ><span class="visually-hidden">Home</span></a
+          >
+        </li>
+        <li class="nav-item ms-2 mb-1 px-2">
+          <a class="btn btn-light rounded-pill px-4" routerLink="about"
+            >About</a
+          >
+        </li>
+        <li class="nav-item ms-2 mb-1 px-2">
+          <a class="btn btn-light rounded-pill px-4" routerLink="login"
+            >Login
+            <!-- <span><i class="fa fa-right-from-bracket fa-beat ps-2"></i></span> -->
+            </a>
+        </li>
+        <li class="nav-item mb-1 px-2">
+          <a
+            class="btn btn-success rounded-pill px-4"
+            routerLink="/register"
+            >Sign in
+            <!-- <i class="fa fa-right-from-bracket fa-beat ps-2 text-white"></i> -->
+          </a>
+        </li>
+      </ul> 
+    </div>
+  </div>
+</nav>

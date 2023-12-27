@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-6">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Role</th>
+          <th scope="col">Name</th>
+          <th scope="col">UserName</th>
+          <th scope="col">Gender</th>
+          <th scope="col">PhoneNo</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of users">
+        <tr (click)="address(user.id)">
+          <!-- <td>
+            <table>
+              <tbody *ngFor="let address of user.addressList">
+                <tr>
+                  <td>{{ address.address }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td> -->
+          <td>{{ user.id }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.gender }}</td>
+          <td>{{ user.phoneNo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-6">
+    <table class="table" >
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Address</th>
+          <th scope="col">City</th>
+          <th scope="col">PinCode</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="userAddresses.length===0">
+        <tr *ngIf="address!=null">
+         
+          <td>snsjnsjn</td>
+          <!-- <td>{{ address.address }}</td>
+          <td>{{ address.city }}</td>
+          <td>{{ address.zipcode }}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ 
+</div>

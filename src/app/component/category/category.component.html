@@ -1,0 +1,99 @@
+<!-- Products -->
+
+<div class="container bg-purple border rounded-5 py-1 mt-5" *ngIf="!admin()">
+  <!-- Title -->
+  <div class="d-flex align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-primary"><h2>Products</h2></div>
+    <div *ngIf="!isLoggedIn()">
+      Please
+      <button class="btn btn-outline-primary btn" routerLink="/login">
+        Login
+      </button>
+      to Place Order
+    </div>
+    <!-- <div class="fs-6 text-primary">
+      <a routerLink="/categories" class="text-decoration-none"
+        >View All<i class="fa fa-arrow-circle-right ps-2"></i
+      ></a>
+    </div> -->
+    <!-- <div>Add</div> -->
+  </div>
+  <!-- Body -->
+  <div class="text-center my-3 mx-2 row">
+    <div class="d-flex flex-wrap justify-content-between py-3">
+      <!-- Card -->
+      <div *ngFor="let product of products">
+        <div
+          class="card col-3 rounded-5 shadow m-3"
+          style="width: 250px; height: 410px"
+        >
+          <div>
+            <img
+              src="{{ downloadProductPhoto(product.id) }}"
+              class="rounded-5 border w-100 p-3"
+              style="width: 248px; height: 240px"
+              (click)="productDetails(product.id)"
+            />
+          </div>
+          <div class="card-body pt-2 pb-0 mb-0">
+            <h5 class="card-title">{{ product.title.substring(0, 15) }}</h5>
+            <p class="fw-lighter text-dull">
+              {{ product.description.substring(0, 25) }}...
+            </p>
+            <h5 class="card-title">₹{{ product.price }}</h5>
+          </div>
+          <!-- Button -->
+          <div *ngIf="user()" class="text-center pb-5">
+            <div *ngIf="getProductCount(product.id) === 0">
+              <button
+                class="rounded-5 border btn-warning btn"
+                (click)="addToCart(product.id, '+')"
+              >
+                Add to Cart
+              </button>
+            </div>
+            <div
+              *ngIf="getProductCount(product.id) > 0"
+              class="d-flex align-items-center justify-content-center rounded-5 border"
+            >
+              <button
+                class="btn"
+                (click)="addToCart(product.id, '-')"
+                (click)="getProductCount(product.id)"
+              >
+                <i
+                  class="fa fa-minus text-danger"
+                  (click)="addToCart(product.id, '-')"
+                ></i>
+              </button>
+              <div>{{ getProductCount(product.id) }}</div>
+              <button class="btn" (click)="addToCart(product.id, '+')">
+                <i
+                  class="fa fa-plus text-success"
+                  (click)="addToCart(product.id, '+')"
+                ></i>
+              </button>
+            </div>
+          </div>
+          <div class="text-center pb-5" *ngIf="restaurant()">
+            <button class="btn btn-warning ms-2">Edit</button
+            ><button
+              class="btn btn-danger ms-2 rounded-5"
+              (click)="deleteProduct(product.id)"
+            >
+              Delete
+            </button>
+          </div>
+          <div class="text-center pb-5" *ngIf="admin()">
+            <button
+              class="btn btn-danger ms-2 rounded-5"
+              (click)="deleteProduct(product.id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

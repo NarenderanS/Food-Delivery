@@ -1,0 +1,46 @@
+<navbar></navbar>
+<router-outlet></router-outlet>
+<!-- <div *ngIf="!isLoggedIn">
+  <router-outlet />
+</div> -->
+
+<!-- <div *ngIf="isLoggedIn" class="container-fluid vh-100 d-flex flex-column">
+ 
+
+  <div *ngIf="isAdmin" class="row flex-grow-1">
+    <div class="sidebar border border-right col-2 p-0">
+      <div class="bg-body-tertiary h-100" tabindex="-1">
+        <div class="d-flex flex-column p-0 pt-3 overflow-y-auto">
+          <ul class="nav flex-column">
+            <li class="nav-item d-flex align-items-center px-4 sideBarItem">
+              <i class="fa-solid fa-house"></i>
+              <a class="nav-link d-flex align-items-center"> Dashboard </a>
+            </li>
+            <li class="nav-item d-flex align-items-center px-4 sideBarActive">
+              <i class="fa-solid fa-book"></i>
+              <a class="nav-link d-flex align-items-center">Products </a>
+            </li>
+            <li class="nav-item d-flex align-items-center px-4 sideBarItem">
+              <i class="fa-solid fa-user"></i>
+              <a class="nav-link d-flex align-items-center">Users</a>
+            </li>
+            <li class="nav-item d-flex align-items-center px-4 sideBarItem">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <a class="nav-link d-flex align-items-center">Orders </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <main class="col-10 px-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  <div *ngIf="!isAdmin">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+<div *ngIf="loaderService.isLoading | async" class="loader">
+  <ng-lottie [options]="options"></ng-lottie>
+</div>

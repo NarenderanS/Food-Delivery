@@ -1,0 +1,266 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-6">
+        <ng-lottie [options]="options"></ng-lottie>
+      </div>
+      <div class="col-6">
+        <form
+          #registerForm="ngForm"
+          (ngSubmit)="register(registerForm)"
+          class="form-control"
+        >
+        <h2 class="display-4 text-primary mt-0 text-center">Register</h2>
+
+          <!-- Username input -->
+          <div class="form-floating mb-3">
+            
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter User Name"
+              name="username"
+              id="floatingUsername"
+              ngModel
+              required
+              pattern="^[a-zA-Z0-9\- ']+$"
+              minlength="4"
+              #modelUserName="ngModel"
+              [ngClass]="
+                modelUserName.invalid && modelUserName.dirty ? 'is-invalid' : ''
+              "
+            />
+            <label class="form-label" for="floatingUsername">UserName</label>
+            <p
+              *ngIf="modelUserName?.errors?.['minlength']?.['requiredLength']&& modelUserName.dirty && !modelUserName?.errors?.['pattern']"
+              class="text-danger"
+            >
+              Please enter username of length
+              {{modelUserName?.errors?.['minlength']?.['requiredLength'] | json}}
+            </p>
+            <p
+              *ngIf="modelUserName?.errors?.['required'] && modelUserName.dirty"
+              class="text-danger"
+            >
+              Please enter UserName
+            </p>
+          </div>
+
+          <!-- Name input -->
+          <div class="form-floating mb-3">
+            
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Name"
+              name="name"
+              id="name"
+              ngModel
+              required
+              pattern="^[a-zA-Z\- ']+$"
+              minlength="4"
+              #modelName="ngModel"
+              [ngClass]="
+                modelName.invalid && modelName.dirty ? 'is-invalid' : ''
+              "
+            /><label class="form-label" for="name">Name</label>
+            <p
+              *ngIf="modelName?.errors?.['minlength']?.['requiredLength']&& modelName.dirty && !modelName?.errors?.['pattern']"
+              class="text-danger"
+            >
+              Please enter name of length
+              {{modelName?.errors?.['minlength']?.['requiredLength'] | json}}
+            </p>
+            <p
+              *ngIf="modelName?.errors?.['required'] && modelName.dirty"
+              class="text-danger"
+            >
+              Please enter Name
+            </p>
+            <p *ngIf="modelName?.errors?.['pattern']" class="text-danger">
+              Name should contain only alphabets
+            </p>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              required
+              id="password"
+              minlength="4"
+              placeholder="Enter Password"
+              name="password"
+              ngModel
+              #password="ngModel"
+              [ngClass]="password.invalid && password.dirty ? 'is-invalid' : ''"
+            />
+            <label class="form-label" for="password">Password</label>
+
+            <div
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="text-danger"
+            >
+              <p *ngIf="password.errors?.['required']" class="p-0 m-0">
+                Password is required.
+              </p>
+              <p *ngIf="password.errors?.['minlength']" class="p-0 m-0">
+                Password must be at least 4 characters long.
+              </p>
+            </div>
+          </div>
+
+          <!-- Confirm Password input -->
+          <div class="form-floating mb-3">
+            
+            <input
+              type="password"
+              class="form-control"
+              required
+              id="confirmPassword"
+              minlength="4"
+              placeholder="Enter Confirm Password"
+              name="cpassword"
+              ngModel
+              #cpassword="ngModel"
+              [ngClass]="
+                cpassword.value !== password.value ||
+                (cpassword.invalid && cpassword.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <label class="form-label" for="confirmPassword"
+              >Confirm Password</label
+            >
+            <div
+              *ngIf="
+                cpassword.invalid && (cpassword.dirty || cpassword.touched)
+              "
+              class="text-danger"
+            >
+              <p *ngIf="cpassword.value !== password.value" class="p-0 m-0">
+                Confirm Password must match with Password.
+              </p>
+            </div>
+          </div>
+          <!-- Gender -->
+          <div class="form-check mb-3 d-flex justify-content-between">
+            <label class="">Gender</label>
+            <div class="form-check">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="male"
+                ngModel
+                name="gender"
+                value="male"
+              />
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="female"
+                ngModel
+                name="gender"
+                value="female"
+              />
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="preferNotToSay"
+                ngModel
+                name="gender"
+                value="Prefer not to say"
+              />
+              <label class="form-check-label" for="preferNotToSay"
+                >Prefer Not To Say</label
+              >
+              <div class="invalid-feedback">Please Select any one</div>
+            </div>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="phoneNo"
+              placeholder="Phone Number"
+              name="phoneNo"
+              ngModel
+              required
+              pattern="^^((\\+91-?)|0)?[0-9]{10}$"
+              minlength="10"
+              #modelPhoneNo="ngModel"
+              [ngClass]="
+                modelPhoneNo.invalid && modelPhoneNo.dirty ? 'is-invalid' : ''
+              "
+            />
+            <label class="form-label" for="phoneNo">Phone Number</label>
+
+            <p
+              *ngIf="modelPhoneNo?.errors?.['minlength']?.['requiredLength']&& modelPhoneNo.dirty && !modelPhoneNo?.errors?.['pattern']"
+              class="text-danger"
+            >
+              Please enter Phone Number of length
+              {{modelPhoneNo?.errors?.['minlength']?.['requiredLength'] | json
+              }}.
+            </p>
+            <p
+              *ngIf="modelPhoneNo?.errors?.['required'] && modelPhoneNo.dirty"
+              class="text-danger"
+            >
+              Please enter Phone Number.
+            </p>
+            <p *ngIf="modelPhoneNo?.errors?.['pattern']" class="text-danger">
+              Phone Number must contain exact 10 digits.
+            </p>
+          </div>
+          <!-- checkBox -->
+          <div class="form-outline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="invalidCheck"
+              name="checkBox"
+              ngModel
+              required
+            />
+            <label class="small ps-2" for="invalidCheck">
+              Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center my-3">
+            <span>Already have an account?</span>
+            <a routerLink="/login" class="text-green text-decoration-none px-2"
+              >Login here</a
+            >
+          </div>
+
+          <!-- Submit button -->
+          <div class="d-grid gap-2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!registerForm.valid"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

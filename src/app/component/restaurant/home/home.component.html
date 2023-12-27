@@ -1,0 +1,580 @@
+<div style="height: 5px"></div>
+<!-- Restaurant Details -->
+<!-- <div class="sticky-top">
+  <section class="bg-rose nav">
+    <div class="container py-4">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center listing-detail-info gap-3">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAomHRohvxYlvVGE5Kbz2FkPlypINI3ASDMw&usqp=CAU"
+              class="img-fluid rounded-3"
+              alt="..."
+            />
+            <div class="listing-detail-info-body">
+              <h3 class="listing-detail-info-title fw-bold mb-1 text-white">
+                FRANCISCO
+              </h3>
+              <p class="mb-3 text-white">Mon to Sun 10 am - 10 pm</p>
+              <div class="d-flex align-items-center gap-4">
+                <div>
+                  <div class="text-uppercase text-warning-light fw-bold fs-14">
+                    <i class="fa fa-star"></i> 4.0
+                  </div>
+                  <p class="text-white small mb-0">3K+ Ratings</p>
+                </div>
+                <div>
+                  <div class="text-uppercase text-white fw-bold fs-14">
+                    1k+<i class="fa fa-users ps-2"></i>
+                  </div>
+                  <p class="text-white small mb-0">Customers</p>
+                </div>
+                <div>
+                  <div class="text-uppercase text-warning-light fw-bold fs-14">
+                    since
+                  </div>
+                  <p class="text-white small mb-0">2000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 d-none d-md-block">
+          <div class="position-relative bg-white rounded-5 p-3">
+            <small
+              class="fw-bold bg-warning text-white rounded-circle px-3 py-1 position-absolute top-0 start-50 translate-middle"
+              >SPECIAL OFFER</small
+            >
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div
+                class="bg-info-subtle rounded-5"
+                style="width: 29px; height: 27px"
+              >
+                <i class="fa fa-percent ps-2 text-primary mt-1"></i>
+              </div>
+              <span>
+                <div class="text-uppercase text-success fw-bold">75% off</div>
+                <p class="text-muted small mb-0">
+                  Up to ₹150 | Use code LOVEYOU
+                </p>
+              </span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <div
+                class="bg-info-subtle rounded-5"
+                style="width: 34px; height: 29px"
+              >
+                <i class="fa fa-gift ps-2 mt-1 text-primary"></i>
+              </div>
+              <span>
+                <div class="text-uppercase text-success fw-bold">
+                  Free Delivery
+                </div>
+                <p class="text-muted small mb-0">On orders above ₹ 299</p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div> -->
+
+<!-- Category -->
+<div class="container bg-purple rounded-4 border py-1 mt-5">
+  <!-- Title -->
+  <div class="d-flex flex-row align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-purple"><h2>Category</h2></div>
+    <div class="fs-6 text-primary">
+      <a
+        *ngIf="isUser() || !isLoggedIn()"
+        routerLink="/categories"
+        class="text-decoration-none"
+        >View All<i class="fa fa-arrow-circle-right ps-2"></i
+      ></a>
+    </div>
+    <div class="fs-5" *ngIf="!isUser() && isLoggedIn()">
+      <a
+        routerLink="/categories"
+        class="text-decoration-none text-purple"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#addCategory"
+        >Add<i class="fa fa-plus ps-2"></i
+      ></a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="text-center my-3 mx-4 row overflow-auto">
+    <div class="d-flex flex-nowrap justify-content-between py-3">
+      <!-- Card -->
+      <div *ngFor="let category of categories">
+        <div>
+          <div
+            class="card col-3 rounded-5 shadow m-3"
+            style="width: 230px; height: 330px"
+          >
+            <div>
+              <img
+                src="{{ downloadCategoryPhoto(category.id) }}"
+                class="rounded-5 border w-100 p-3"
+                style="width: 248px; height: 240px"
+                (click)="categoryProducts(category.id)"
+              />
+            </div>
+            <div class="card-body pt-2">
+              <h5 class="card-title">{{ category.title }}</h5>
+              <p class="fw-lighter text-dull">Shop Anywhere</p>
+              <!-- Button -->
+              <!-- <div class="text-center">
+                <button class="btn btn-warning ms-2">Edit</button>
+                <button
+                  class="btn btn-danger ms-2 rounded-5"
+                  (click)="deleteCategory(category.id)"
+                >
+                  Delete
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Products -->
+<div class="container bg-white rounded-4 border py-1 mt-5">
+  <!-- Title -->
+  <div class="d-flex align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-primary"><h2>Products</h2></div>
+    <div *ngIf="!isLoggedIn()">
+      Please
+      <button class="btn btn-outline-primary btn" routerLink="/login">
+        Login
+      </button>
+      to Place Order
+    </div>
+    <!-- <div class="fs-6 text-primary">
+        <a routerLink="/categories" class="text-decoration-none"
+          >View All<i class="fa fa-arrow-circle-right ps-2"></i
+        ></a>
+      </div> -->
+    <div class="fs-5 text-primary" *ngIf="!isUser() && isLoggedIn()">
+      <a
+        class="text-decoration-none"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#addProduct"
+        >Add<i class="fa fa-plus ps-2"></i
+      ></a>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="text-center my-3 mx-2 row">
+    <div class="d-flex flex-wrap justify-content-around py-3">
+      <!-- Card -->
+      <div *ngFor="let product of products">
+        <div
+          class="card col-3 rounded-5 shadow m-3"
+          style="width: 250px; height: 410px"
+        >
+          <div>
+            <img
+              src="{{ downloadProductPhoto(product.id) }}"
+              class="rounded-5 border w-100 p-3"
+              style="width: 248px; height: 240px"
+              (click)="productDetails(product.id)"
+            />
+          </div>
+          <div class="card-body pt-2 pb-0">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="fw-lighter text-dull">
+              {{ product.description.substring(0, 25) }}...
+            </p>
+            <h5 class="card-title">₹{{ product.price }}</h5>
+          </div>
+          <!-- Button -->
+          <div class="text-center pb-5" *ngIf="!isUser() && isLoggedIn()">
+            <button
+              *ngIf="isRestaurant()"
+              class="btn btn-warning ms-2"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#addProduct"
+              (click)="editProduct(product, addProductForm)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger ms-2 rounded-5"
+              (click)="deleteProduct(product.id)"
+            >
+              Delete
+            </button>
+          </div>
+          <div class="pb-5" *ngIf="!isLoggedIn()">
+            <button
+              class="rounded-5 border btn-warning btn"
+              routerLink="/login"
+              style="width: 100px;"
+            >
+              Buy
+            </button>
+          </div>
+          <div *ngIf="isUser()" class="pb-5">
+            <div *ngIf="getProductCount(product.id) === 0">
+              <button
+                class="rounded-5 border btn-warning btn"
+                (click)="addToCart(product.id, '+')"
+              >
+                Add to Cart
+              </button>
+            </div>
+            <div
+              *ngIf="getProductCount(product.id) > 0"
+              class="d-flex align-items-center justify-content-center rounded-5 border"
+            >
+              <button
+                class="btn"
+                (click)="addToCart(product.id, '-')"
+                (click)="getProductCount(product.id)"
+              >
+                <i
+                  class="fa fa-minus text-danger m-0 p-0"
+                  (click)="addToCart(product.id, '-')"
+                ></i>
+              </button>
+              <div>{{ getProductCount(product.id) }}</div>
+              <button class="btn" (click)="addToCart(product.id, '+')">
+                <i
+                  class="fa fa-plus text-success m-0 p-0"
+                  (click)="addToCart(product.id, '+')"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Category -->
+<div
+  class="offcanvas offcanvas-end rounded-start bg-purple"
+  data-bs-scroll="true"
+  data-bs-backdrop="true"
+  tabindex="-1"
+  id="addCategory"
+>
+  <div class="offcanvas-header ps-5">
+    <h5 class="offcanvas-title text-center ps-5" id="offcanvasScrollingLabel">
+      Add Category
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0 m-4">
+    <div class="bg-purple" tabindex="-1">
+      <div class="d-flex flex-column">
+        <form
+          #addCategoryForm="ngForm"
+          (ngSubmit)="addCategory(addCategoryForm)"
+        >
+          <!-- Category Name -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="category"
+              class="form-control"
+              required
+              minlength="4"
+              placeholder="Enter Category"
+              name="categoryName"
+              ngModel
+              #categoryName="ngModel"
+              [ngClass]="
+                categoryName.invalid && categoryName.dirty ? 'is-invalid' : ''
+              "
+            />
+            <label class="form-label" for="category">Category</label>
+            <p
+              *ngIf="categoryName?.errors?.['required'] && categoryName.dirty"
+              class="text-danger"
+            >
+              Please enter Category
+            </p>
+            <p
+              *ngIf="categoryName.errors?.['minlength']"
+              class="p-0 m-0 text-danger"
+            >
+              Category minimum 4 characters.
+            </p>
+          </div>
+          <!-- Image -->
+          <div class="form-floating mb-3">
+            <div class="mb-3 p-0">
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                (change)="categoryFileChange($event)"
+              />
+            </div>
+            <!-- <label for="formFilesm" class="form-label">Category Image</label> -->
+          </div>
+
+          <div class="text-center">
+            <button
+              [disabled]="!addCategoryForm.valid"
+              class="btn btn-success"
+              type="submit"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Product -->
+<div>
+  <div
+    class="offcanvas offcanvas-end rounded-start bg-white"
+    data-bs-scroll="false"
+    data-bs-backdrop="true"
+    tabindex="-1"
+    id="addProduct"
+  >
+    <div class="offcanvas-header ps-5">
+      <h5 class="offcanvas-title text-center ps-5" id="offcanvasScrollingLabel">
+        {{ productText }} Product
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body m-4">
+      <div class="" tabindex="-1">
+        <div class="d-flex flex-column">
+          <form
+            action=""
+            (ngSubmit)="addProduct(addProductForm)"
+            #addProductForm="ngForm"
+          >
+            <!-- product Name -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                id="productName"
+                class="form-control"
+                required
+                minlength="4"
+                placeholder="Enter Product Name"
+                name="productName"
+                ngModel
+                #productName="ngModel"
+                [ngClass]="
+                  productName.invalid && productName.dirty ? 'is-invalid' : ''
+                "
+              />
+              <label for="form-label" for="productName">Product Title</label>
+              <div
+                *ngIf="
+                  productName.invalid &&
+                  (productName.dirty || productName.touched)
+                "
+                class="text-danger p-0 m-0"
+              >
+                <p *ngIf="productName.errors?.['required']" class="p-0 m-0">
+                  Product Name is required.
+                </p>
+                <p *ngIf="productName.errors?.['minlength']" class="p-0 m-0">
+                  Title must be at least 4 characters long.
+                </p>
+              </div>
+            </div>
+            <!-- Description -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                required
+                maxlength="255"
+                placeholder="Enter description"
+                name="description"
+                ngModel
+                #description="ngModel"
+                [ngClass]="
+                  description.invalid && description.dirty ? 'is-invalid' : ''
+                "
+              />
+              <label for="form-label" for="description">Description</label>
+              <div
+                *ngIf="
+                  description.invalid &&
+                  (description.dirty || description.touched)
+                "
+                class="text-danger"
+              >
+                <p *ngIf="description.errors?.['required']" class="p-0 m-0">
+                  Description is required.
+                </p>
+                <p *ngIf="description.errors?.['maxlength']" class="p-0 m-0">
+                  Description must be at least 255 characters long.
+                </p>
+              </div>
+            </div>
+            <!-- Price -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                required
+                placeholder="Enter Price"
+                name="price"
+                ngModel
+                pattern="[0-9]+"
+                #price="ngModel"
+                [ngClass]="price.invalid && price.dirty ? 'is-invalid' : ''"
+              />
+              <label for="form-label" for="price">Price</label>
+              <div
+                *ngIf="price.invalid && (price.dirty || price.touched)"
+                class="text-danger"
+              >
+                <p *ngIf="price.errors?.['required']" class="p-0 m-0">
+                  Price is required.
+                </p>
+                <p *ngIf="price?.errors?.['pattern']" class="text-danger">
+                  Price must contain only digits.
+                </p>
+              </div>
+            </div>
+
+            <!-- Category Id -->
+            <div class="form-floating mb-3">
+              <select
+                class="form-control form-select"
+                ngModel
+                id="categoryId"
+                name="categoryId"
+                #categoryId="ngModel"
+                required
+                [ngClass]="
+                  categoryId.invalid && categoryId.dirty ? 'is-invalid' : ''
+                "
+              >
+                <option selected disabled value="">
+                  Choose Anyone Category
+                </option>
+                <option
+                  *ngFor="let category of categories"
+                  value="{{ category.id }}"
+                >
+                  {{ category.title }}
+                </option>
+              </select>
+              <label for="form-label" for="categoryId">Category</label>
+              <div
+                *ngIf="
+                  categoryId.invalid && (categoryId.dirty || categoryId.touched)
+                "
+                class="text-danger p-0 m-0"
+              >
+                <p *ngIf="categoryId.errors?.['required']" class="p-0 m-0">
+                  Category is required.
+                </p>
+              </div>
+            </div>
+
+            <!-- VegOrNonVeg -->
+            <label class="form-label">Type</label>
+            <div class="form-control p-2">
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="veg"
+                  ngModel
+                  name="vegOrNonVeg"
+                  value="1"
+                />
+                <label class="form-check-label" for="veg">Veg</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="nonVeg"
+                  ngModel
+                  name="vegOrNonVeg"
+                  value="2"
+                />
+                <label class="form-check-label" for="nonVeg">Non Veg</label>
+              </div>
+            </div>
+            <!-- Image -->
+            <div class="form-floating mb-3">
+              <div class="mb-3 p-0">
+                <label for="formFilesm" class="form-label">Product Image</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="formFile"
+                  (change)="productFileChange($event)"
+                />
+              </div>
+            </div>
+
+            <!-- Count -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="count"
+                placeholder="Count"
+                pattern="[0-9]+"
+                name="count"
+                ngModel
+                #count="ngModel"
+                [ngClass]="count.invalid && count.dirty ? 'is-invalid' : ''"
+              /><label for="form-label" for="count">Count</label>
+              <div
+                *ngIf="count.invalid && (count.dirty || count.touched)"
+                class="text-danger p-0 m-0"
+              >
+                <p *ngIf="count.errors?.['required']" class="p-0 m-0">
+                  Count is required.
+                </p>
+                <p *ngIf="count?.errors?.['pattern']" class="text-danger">
+                  Phone Number must contain 10 digits.
+                </p>
+              </div>
+            </div>
+
+            <button
+              [disabled]="!addProductForm.valid"
+              class="green"
+              type="submit"
+            >
+              {{ productText }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

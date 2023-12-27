@@ -1,0 +1,552 @@
+<!-- <nav
+  class="navbar green shadow rounded-end-4 overflow-y-auto"
+  style="height:100%; width: 70px"
+>
+  <div class="container-fluid h-50 d-flex  flex-column justify-content-around">
+    <div>
+      <a class="navbar-brand text-white" routerLink="home">SA</a>
+    </div> 
+    <div>
+      <a
+        class="btn btn-light position-relative rounded-pill rounded-icon"
+        routerLink="admin/home"
+        routerLinkActive="active"
+        ><i class="fa fa-house-chimney"></i>
+      </a>
+    </div>
+
+    <div>
+      <a
+        class="btn btn-light position-relative rounded-pill rounded-icon"
+        routerLink="cart"
+        routerLinkActive="active"
+      >
+        <i class="fa fa-cart-shopping"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+          >5
+          <span class="visually-hidden">Cart</span>
+        </span>
+      </a>
+    </div>
+    <div>
+      <a
+        href="#"
+        class="btn btn-light position-relative rounded-pill rounded-icon"
+        routerLink="restaurant_orders"
+        routerLinkActive="active" (click)="restaurantOrders(1)"
+      >
+        <i class="fa fa-bowl-food"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+          >5
+          <span class="visually-hidden">Order</span>
+        </span>
+      </a>
+    </div>
+    <div>
+      <a
+        href="#"
+        class="btn btn-light rounded-pill rounded-icon fixed"
+        routerLink="profile"
+        routerLinkActive="active"
+      >
+        <i class="fa-regular fa-circle-user"></i>
+      </a>
+    </div>
+    <div>
+      <a class="btn btn-light rounded-pill" (click)="logout()">
+        <i class="fa fa-right-from-bracket text-danger"></i
+      ></a>
+    </div>
+     <div
+      class="collapse navbar-collapse d-flex justify-content-around"
+      id="navbarNav"
+    >
+    </div>
+  </div>
+</nav>  -->
+
+<!-- Menu button -->
+<button
+  class="btn btn-primary ms-5"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#menu"
+  aria-controls="offcanvasScrolling"
+>
+  Menu
+</button>
+
+<div
+  class="offcanvas offcanvas-start rounded-start a" style="width: 250px;"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  tabindex="-1"
+  id="menu"
+  aria-labelledby="offcanvasScrollingLabel"
+>
+  <div class="offcanvas-header ps-5">
+    <h5 class="offcanvas-title text-center ps-5" id="offcanvasScrollingLabel">
+      Menu
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="bg-body-tertiary h-100" tabindex="-1">
+      <div class="d-flex flex-column overflow-y-auto">
+        <ul class="flex-column">
+          <li class="nav-item d-flex align-items-center sideBarItem">
+            <i class="fa fa-house-chimney text-black"></i>
+            <a class="nav-link d-flex align-items-center"> Dashboard </a>
+          </li>
+          <li class="nav-item d-flex align-items-center sideBarItem">
+            <i class="fa fa-book"></i>
+            <a class="nav-link d-flex align-items-center">Products </a>
+          </li>
+          <li class="nav-item d-flex align-items-center sideBarItem">
+            <i class="fa fa-user"></i>
+            <a class="nav-link d-flex align-items-center">Users</a>
+          </li>
+          <li
+            class="nav-item d-flex align-items-center sideBarItem"
+            (click)="restaurantDetails(1)"
+          >
+            <i class="fa fa-hotel"></i>
+            <a class="nav-link d-flex align-items-center">Restaurants </a>
+          </li>
+          <li
+            class="nav-item d-flex align-items-center sideBarItem"
+            (click)="logout()"
+          >
+            <i class="fa fa-right-from-bracket text-danger"></i
+            ><a class="nav-link d-flex align-items-center">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="height: 5px"></div>
+
+<!-- Category -->
+<div class="container bg-purple border rounded-5 py-1 mt-5">
+  <!-- Title -->
+  <div class="d-flex flex-row align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-purple"><h2>Category</h2></div>
+    <!-- <div class="fs-6 text-primary">
+      <a routerLink="/categories" class="text-decoration-none"
+        >View All<i class="fa fa-arrow-circle-right ps-2"></i
+      ></a>
+    </div> -->
+    <div class="fs-5">
+      <a
+        routerLink="/categories"
+        class="text-decoration-none text-purple"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#addCategory"
+        >Add<i class="fa fa-plus ps-2"></i
+      ></a>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="text-center my-3 mx-4 row overflow-auto">
+    <div class="d-flex flex-nowrap justify-content-between py-3">
+      <!-- Card -->
+      <div *ngFor="let category of categories">
+        <div>
+          <div
+            class="card col-3 rounded-5 shadow m-3"
+            style="width: 230px; height: 370px"
+          >
+            <div>
+              <img
+                src=""
+                class="rounded-5 border w-100 p-3"
+                style="width: 248px; height: 240px"
+                (click)="categoryProducts(category.id)"
+              />
+            </div>
+            <div class="card-body pt-2">
+              <h5 class="card-title">{{ category.title }}</h5>
+              <p class="fw-lighter text-dull">RR Ice Creams</p>
+              <!-- Button -->
+              <div class="text-center">
+                <button
+                  class="btn btn-warning ms-2"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#addCategory"
+                  (click)="editCategory(category, addCategoryForm)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn btn-danger ms-2 rounded-5"
+                  (click)="deleteCategory(category.id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Restaurant -->
+<div class="container bg-rose border rounded-5 py-1 mt-5">
+  <!-- Title -->
+  <div class="d-flex flex-row align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-primary"><h2>Restaurant</h2></div>
+    <!-- Add Restaurant -->
+    <div class="fs-5">
+      <a
+        routerLink="/categories"
+        class="text-decoration-none"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#addRestaurant"
+        >Add<i class="fa fa-plus ps-2"></i></a
+      ><br />
+      <!-- <a routerLink="/categories" class="text-decoration-none"
+        >View All<i class="fa fa-arrow-circle-right ps-2"></i
+      ></a> -->
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="text-center my-3 mx-4 row overflow-auto">
+    <div class="d-flex flex-nowrap justify-content-between py-3">
+      <!-- Card -->
+      <div *ngFor="let restaurant of restaurants">
+        <div
+          class="card col-3 rounded-5 shadow m-3"
+          style="width: 230px; height: 370px"
+        >
+          <img
+            src=""
+            class="rounded-5 border w-100 p-3"
+            style="width: 248px; height: 240px"
+            (click)="restaurantDetails(restaurant.id)"
+          />
+          <div class="card-body pt-2">
+            <h5 class="card-title">{{ restaurant.title }}</h5>
+            <p class="fw-lighter text-dull">{{ restaurant.address }}</p>
+            <!-- Button -->
+            <div class="text-center">
+              <button
+                class="btn btn-warning ms-2"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#addRestaurant"
+                (click)="editRestautant(restaurant, addRestaurantForm)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger ms-2 rounded-5"
+                (click)="deleteRestaurant(restaurant.id)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Products -->
+<div class="container bg-white border rounded-5 py-1 mt-5">
+  <!-- Title -->
+  <div class="d-flex align-items-center justify-content-between px-5">
+    <div class="pt-4 ps-4 text-primary"><h2>Products</h2></div>
+    <div class="fs-6 text-primary">
+      <a routerLink="/categories" class="text-decoration-none"
+        >View All<i class="fa fa-arrow-circle-right ps-2"></i
+      ></a>
+    </div>
+    <!-- <div>Add</div> -->
+  </div>
+  <!-- Body -->
+  <div class="text-center my-3 mx-2 row">
+    <div class="d-flex flex-wrap justify-content-between py-3">
+      <!-- Card -->
+      <div *ngFor="let product of products">
+        <div
+          class="card col-3 rounded-5 shadow m-3"
+          style="width: 250px; height: 410px"
+        >
+          <div>
+            <img
+              src=""
+              class="rounded-5 border w-100 p-3"
+              style="width: 248px; height: 240px"
+              (click)="productDetails(product.id)"
+            />
+          </div>
+          <div class="card-body pt-2 pb-0">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="fw-lighter text-dull">{{ product.description }}</p>
+            <h5 class="card-title">₹{{ product.price }}</h5>
+            <button
+              class="btn btn-danger ms-2 rounded-5"
+              (click)="deleteProduct(product.id)"
+            >
+              Delete
+            </button>
+          </div>
+          <!-- Button -->
+          <!-- <div class="text-center pb-5">
+            <button class="btn btn-warning ms-2">Edit</button>
+            <button class="btn btn-danger ms-2 rounded-5">Delete</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Details -->
+
+<!-- Add Restaurant Model -->
+<div
+  class="offcanvas offcanvas-end rounded-start bg-rose"
+  data-bs-scroll="true"
+  data-bs-backdrop="true"
+  tabindex="-1"
+  id="addRestaurant"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-center ps-3" id="offcanvasScrollingLabel">
+      Add Restaurant
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0 m-4">
+    <div class="" tabindex="-1">
+      <div class="d-flex flex-column">
+        <form
+          #addRestaurantForm="ngForm"
+          (ngSubmit)="registerRestaurant(addRestaurantForm)"
+        >
+          <!-- Restaurant Name -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="restaurantName"
+              class="form-control"
+              required
+              minlength="4"
+              placeholder="Enter Restaurant Name"
+              name="restaurantName"
+              ngModel
+              #name="ngModel"
+              [ngClass]="name.invalid && name.dirty ? 'is-invalid' : ''"
+            />
+            <label class="form-label" for="restaurantName"
+              >Restaurant Name</label
+            >
+            <div
+              *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="text-danger p-0 m-0"
+            >
+              <p *ngIf="name.errors?.['required']" class="p-0 m-0">
+                Restaurant Name is required.
+              </p>
+              <p *ngIf="name.errors?.['minlength']" class="p-0 m-0">
+                Restaurant Name must be at least 4 characters long.
+              </p>
+            </div>
+          </div>
+          <!-- Restaurant Address -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              required
+              minlength="10"
+              placeholder="Enter Restaurant Address"
+              name="address"
+              ngModel
+              #address="ngModel"
+              [ngClass]="address.invalid && address.dirty ? 'is-invalid' : ''"
+            />
+            <label class="form-label" for="address">Address</label>
+            <div
+              *ngIf="address.invalid && (address.dirty || address.touched)"
+              class="text-danger p-0 m-0"
+            >
+              <p *ngIf="address.errors?.['required']" class="p-0 m-0">
+                Address is required.
+              </p>
+              <p *ngIf="address.errors?.['minlength']" class="p-0 m-0">
+                Address must be at least 10 characters long.
+              </p>
+            </div>
+          </div>
+          <!-- Username -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              required
+              minlength="4"
+              placeholder="Enter username"
+              name="username"
+              ngModel
+              #username="ngModel"
+              [ngClass]="username.invalid && username.dirty ? 'is-invalid' : ''"
+            />
+            <label class="form-label" for="username">Username</label>
+            <div
+              *ngIf="username.invalid && (username.dirty || username.touched)"
+              class="text-danger"
+            >
+              <p *ngIf="username.errors?.['required']" class="p-0 m-0">
+                Username is required.
+              </p>
+              <p *ngIf="username.errors?.['minlength']" class="p-0 m-0">
+                Username must be at least 4 characters long.
+              </p>
+            </div>
+          </div>
+          <!-- Confirm Username -->
+          <!-- <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              required
+              id="cUsername"
+              placeholder="Please Confirm Username"
+              name="cUsername"
+              ngModel
+              #cUsername="ngModel"
+              [ngClass]="
+                cUsername.value !== cUsername.value ||
+                (cUsername.invalid && cUsername.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <label class="form-label" for="cUsername">Confirm Username</label>
+            <div
+              *ngIf="
+                cUsername.invalid && (cUsername.dirty || cUsername.touched)
+              "
+              class="text-danger"
+            >
+              <p
+                *ngIf="cUsername.value !== username.value"
+                class="p-0 m-0"
+              >
+                Confirm Username must match with Password.
+              </p>
+            </div>
+          </div> -->
+          <!-- Image -->
+          <div class="mb-3">
+            <label for="formFilesm" class="form-label">Product Image</label>
+            <input class="form-control" type="file" id="formFile" />
+          </div>
+          <button
+            [disabled]="!addRestaurantForm.valid"
+            class="btn btn-primary"
+            type="submit"
+          >
+            Register Restaurant
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
+
+<!-- Copy of restaurant -->
+<!-- Add Category -->
+<div
+  class="offcanvas offcanvas-end rounded-start bg-purple"
+  data-bs-scroll="true"
+  data-bs-backdrop="true"
+  tabindex="-1"
+  id="addCategory"
+>
+  <div class="offcanvas-header ps-5">
+    <h5 class="offcanvas-title text-center ps-5" id="offcanvasScrollingLabel">
+      {{ categoryText }} Category
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0 m-4">
+    <div class="bg-purple" tabindex="-1">
+      <div class="d-flex flex-column">
+        <form
+          #addCategoryForm="ngForm"
+          (ngSubmit)="addCategory(addCategoryForm)"
+        >
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="category"
+              class="form-control"
+              required
+              minlength="4"
+              placeholder="Enter Category"
+              name="categoryName"
+              ngModel
+              #categoryName="ngModel"
+              [ngClass]="
+                categoryName.invalid && categoryName.dirty ? 'is-invalid' : ''
+              "
+            />
+            <label class="form-label" for="category">Category</label>
+            <p
+              *ngIf="categoryName?.errors?.['required'] && categoryName.dirty"
+              class="text-danger"
+            >
+              Please enter Category
+            </p>
+            <p
+              *ngIf="categoryName.errors?.['minlength']"
+              class="p-0 m-0 text-danger"
+            >
+              Category minimum 4 characters.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <button
+              [disabled]="!addCategoryForm.valid"
+              class="btn btn-success"
+              type="submit"
+            >
+              {{ categoryText }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
